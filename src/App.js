@@ -1,7 +1,7 @@
-import React, { useEffect, useState } from 'react'
+import React, { useEffect, useState } from 'react';
 import Button from '@mui/material/Button';
-import Markdown from 'react-markdown'
-import remarkGfm from 'remark-gfm'
+import Markdown from 'react-markdown';
+import remarkGfm from 'remark-gfm';
 
 const App = () => {
   const [data, setData] = useState([]);
