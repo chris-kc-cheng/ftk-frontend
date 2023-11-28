@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from 'react'
+import Button from '@mui/material/Button';
 import Markdown from 'react-markdown'
 import remarkGfm from 'remark-gfm'
 
@@ -16,7 +17,7 @@ const App = () => {
   }, []);
   return (
     <>
-      <button type="button" onClick={() => {
+      <Button variant="contained" onClick={() => {
         fetch("http://127.0.0.1:5000/notes/new", {
           method: "POST",
           headers: {            
@@ -25,7 +26,7 @@ const App = () => {
           body: JSON.stringify({content: "Some text 😋"})
         })
       }}>Click to add
-      </button>
+      </Button>
       {data.map(note =>
         <div>
           <Markdown remarkPlugins={[remarkGfm]}>{note.content}</Markdown>
