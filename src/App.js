@@ -2,6 +2,9 @@ import React, { useEffect, useState } from 'react';
 import Button from '@mui/material/Button';
 import Markdown from 'react-markdown';
 import remarkGfm from 'remark-gfm';
+import remarkMath from 'remark-math';
+import rehypeKatex from 'rehype-katex';
+import 'katex/dist/katex.min.css'
 
 const App = () => {
   const [data, setData] = useState([]);
@@ -29,7 +32,7 @@ const App = () => {
       </Button>
       {data.map(note =>
         <div>
-          <Markdown remarkPlugins={[remarkGfm]}>{note.content}</Markdown>
+          <Markdown remarkPlugins={[remarkGfm, remarkMath]} rehypePlugins={[rehypeKatex]}>{note.content}</Markdown>
         </div>
       )}
     </>
