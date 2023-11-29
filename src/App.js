@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import Button from '@mui/material/Button';
-import Markdown from 'react-markdown/react-markdown.min';
+import Markdown from 'react-markdown';
 import remarkGfm from 'remark-gfm';
 
 const App = () => {
