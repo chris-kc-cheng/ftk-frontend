@@ -1,7 +1,7 @@
 {
   "files": {
-    "main.css": "/ftk-frontend/static/css/main.541b0433.css",
-    "main.js": "/ftk-frontend/static/js/main.0027db3d.js",
+    "main.css": "/ftk-frontend/static/css/main.e09b257b.css",
+    "main.js": "/ftk-frontend/static/js/main.36f15c84.js",
     "static/js/787.aae119dd.chunk.js": "/ftk-frontend/static/js/787.aae119dd.chunk.js",
     "static/media/KaTeX_AMS-Regular.ttf": "/ftk-frontend/static/media/KaTeX_AMS-Regular.853be92419a6c3766b9a.ttf",
     "static/media/KaTeX_Main-Regular.ttf": "/ftk-frontend/static/media/KaTeX_Main-Regular.9eba1d77abcf2aa6e94e.ttf",
@@ -64,12 +64,12 @@
     "static/media/KaTeX_Size3-Regular.woff": "/ftk-frontend/static/media/KaTeX_Size3-Regular.7947224e8a9914fa332b.woff",
     "static/media/KaTeX_Size3-Regular.woff2": "/ftk-frontend/static/media/KaTeX_Size3-Regular.e1951519f6f0596f7356.woff2",
     "index.html": "/ftk-frontend/index.html",
-    "main.541b0433.css.map": "/ftk-frontend/static/css/main.541b0433.css.map",
-    "main.0027db3d.js.map": "/ftk-frontend/static/js/main.0027db3d.js.map",
+    "main.e09b257b.css.map": "/ftk-frontend/static/css/main.e09b257b.css.map",
+    "main.36f15c84.js.map": "/ftk-frontend/static/js/main.36f15c84.js.map",
     "787.aae119dd.chunk.js.map": "/ftk-frontend/static/js/787.aae119dd.chunk.js.map"
   },
   "entrypoints": [
-    "static/css/main.541b0433.css",
-    "static/js/main.0027db3d.js"
+    "static/css/main.e09b257b.css",
+    "static/js/main.36f15c84.js"
   ]
 }
