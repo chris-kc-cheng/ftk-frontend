@@ -14,6 +14,15 @@ import MenuIcon from '@mui/icons-material/Menu';
 import Toolbar from '@mui/material/Toolbar';
 import Typography from '@mui/material/Typography';
 
+import HomeOutlinedIcon from '@mui/icons-material/HomeOutlined';
+import AssignmentOutlinedIcon from '@mui/icons-material/AssignmentOutlined';
+import TrendingUpOutlinedIcon from '@mui/icons-material/TrendingUpOutlined';
+import PeopleOutlinedIcon from '@mui/icons-material/PeopleOutlined';
+import InsertChartOutlinedSharpIcon from '@mui/icons-material/InsertChartOutlinedSharp';
+import SettingsOutlinedIcon from '@mui/icons-material/SettingsOutlined';
+import AccountCircleOutlinedIcon from '@mui/icons-material/AccountCircleOutlined';
+import LogoutOutlinedIcon from '@mui/icons-material/LogoutOutlined';
+
 import { NavLink, Outlet } from "react-router-dom";
 import { logout } from './Auth';
 
@@ -27,30 +36,59 @@ function Dashboard(props) {
     setMobileOpen(!mobileOpen);
   };
 
-  const menu = ['Home', 'Research', 'Performance', 'Client', 'Market'];
+  const menu = [
+    {
+      label: 'Home',
+      icon: <HomeOutlinedIcon />
+    },
+    {
+      label: 'Research',
+      icon: <AssignmentOutlinedIcon />
+    },
+    {
+      label: 'Performance',
+      icon: <TrendingUpOutlinedIcon />
+    },
+    {
+      label: 'Client',
+      icon: <PeopleOutlinedIcon />
+    },
+    {
+      label: 'Market',
+      icon: <InsertChartOutlinedSharpIcon />
+    }
+  ];
 
   const drawer = (
     <div>
       <Toolbar />
       <Divider />
       <List>
-        {menu.map((text, index) => (
-          <ListItem key={text} disablePadding>
-            <ListItemButton component={NavLink} to={text}>
+        {menu.map((item, index) => (
+          <ListItem key={item.label} disablePadding>
+            <ListItemButton component={NavLink} to={item.label}>
               <ListItemIcon>
-
+                {item.icon}
               </ListItemIcon>
-              <ListItemText primary={text} />
+              <ListItemText primary={item.label} />
             </ListItemButton>
           </ListItem>
         ))}
       </List>
       <Divider />
       <List>
+      <ListItem key='Admin' disablePadding>
+          <ListItemButton component={NavLink} to="Admin">
+            <ListItemIcon>
+              <SettingsOutlinedIcon />
+            </ListItemIcon>
+            <ListItemText primary='Admin' />
+          </ListItemButton>
+        </ListItem>
         <ListItem key='Profile' disablePadding>
           <ListItemButton component={NavLink} to="Profile">
             <ListItemIcon>
-
+              <AccountCircleOutlinedIcon />
             </ListItemIcon>
             <ListItemText primary='Profile' />
           </ListItemButton>
@@ -58,7 +96,7 @@ function Dashboard(props) {
         <ListItem key='Logout' disablePadding>
           <ListItemButton onClick={() => logout()}>
             <ListItemIcon>
-
+              <LogoutOutlinedIcon />
             </ListItemIcon>
             <ListItemText primary='Logout' />
           </ListItemButton>

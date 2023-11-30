@@ -2,6 +2,8 @@ import React from 'react';
 import ReactDOM from 'react-dom/client';
 import { HashRouter, Route, Routes, Outlet } from "react-router-dom";
 import App from './App';
+import Research from './Research';
+import Admin from './Admin';
 import Profile from './Profile';
 import Note from './Note';
 import Home from './Home';
@@ -17,7 +19,7 @@ root.render(
           <Route index element={<h1>Index</h1>} />
           <Route path="Research" element={
             <>
-              <h1>Research</h1>
+              <Research />
               <Outlet />
             </>}>
             <Route path=":fundId" element={<h1>Fund</h1>} />
@@ -31,6 +33,7 @@ root.render(
           <Route path="Performance" element={<h1>Performance</h1>} />
           <Route path="Client" element={<h1>Client</h1>} />
           <Route path="Market" element={<h1>Market</h1>} />
+          <Route path="Admin" element={<Admin />} />
           <Route path="Profile" element={<Profile />} />
         </Route>
       </Routes>
