@@ -2,13 +2,14 @@ import { useEffect, useState } from 'react';
 import Stack from '@mui/material/Stack';
 import Slider from '@mui/material/Slider';
 import Typography from '@mui/material/Typography';
+import { authFetch } from './Auth';
 
 const Interactive = () => {
 
     const [a, setA] = useState(0);
     const [b, setB] = useState(5);
     const [i, setI] = useState(0);
-    const [sum, setSum] = useState(30);
+    const [sum, setSum] = useState();
 
     const handleAChange = (event, a) => {
         setA(a);
@@ -21,7 +22,7 @@ const Interactive = () => {
     }
     useEffect(() => {
         console.log(a, b)
-        fetch("http://127.0.0.1:5000/add", {
+        authFetch("http://127.0.0.1:5000/add", {
             method: "POST",
             headers: {
                 'Content-Type': 'application/json'

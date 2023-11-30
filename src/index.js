@@ -1,38 +1,41 @@
 import React from 'react';
 import ReactDOM from 'react-dom/client';
-import {
-  createBrowserRouter,
-  RouterProvider,
-} from "react-router-dom";
+import { BrowserRouter, Route, Routes, Outlet } from "react-router-dom";
 import App from './App';
-import Dashboard from './Dashboard';
-import Login from './Login';
+import Profile from './Profile';
+import Note from './Note';
 import Interactive from './Interactive';
 import reportWebVitals from './reportWebVitals';
-
-const router = createBrowserRouter([
-  {
-    path: "/login",
-    element: <Login />
-  },
-  {
-    path: "/",
-    element: <App />,
-  },
-  {
-    path: "/dashboard",
-    element: <Dashboard />,
-  },
-  {
-    path: "/interactive",
-    element: <Interactive />,
-  }
-]);
+import ProtectedRoute from './ProtectedRoute';
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
-  <React.StrictMode>    
-    <RouterProvider router={router} />
+  <React.StrictMode>
+    <BrowserRouter>
+      <Routes>
+        <Route path="/" element={<App />}>
+          <Route index element={<h1>Index</h1>} />
+          <Route path="Research" element={
+            <>
+              <h1>Research</h1>
+              <Outlet />
+            </>}>
+            <Route path=":fundId" element={<h1>Fund</h1>} />
+            <Route path=":fundId/edit" element={<h1>Edit</h1>} />            
+            <Route index element={<Note />} />
+          </Route>
+          <Route path="Performance" element={<h1>Performance</h1>} />
+          <Route path="Client" element={<h1>Client</h1>} />
+          <Route path="Market" element={<h1>Market</h1>} />
+          <Route path="Profile" element={<Profile />} />
+          <Route path="Interactive" element={
+            <ProtectedRoute>
+              <Interactive />
+            </ProtectedRoute>
+          } />
+        </Route>
+      </Routes>
+    </BrowserRouter>
   </React.StrictMode>
 );
 

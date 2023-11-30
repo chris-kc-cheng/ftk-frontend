@@ -6,7 +6,7 @@ import remarkMath from 'remark-math';
 import rehypeKatex from 'rehype-katex';
 import 'katex/dist/katex.min.css'
 
-const Markdown = () => {
+const Note = () => {
   const [data, setData] = useState([]);
   const getContents = () => {
     fetch("http://127.0.0.1:5000/notes/all")
@@ -39,4 +39,4 @@ const Markdown = () => {
   );
 }
 
-export default Markdown;
+export default Note;

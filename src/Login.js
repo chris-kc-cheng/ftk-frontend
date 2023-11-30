@@ -37,7 +37,7 @@ const Login = () => {
     return (
         <>
             <TextField label="Username" variant="standard" onChange={(e) => setUsername(e.target.value)} />
-            <TextField label="Password" variant="standard" onChange={(e) => setPassword(e.target.value)} />
+            <TextField label="Password" variant="standard" onChange={(e) => setPassword(e.target.value)} type="password" />
             <Button variant="outlined" onClick={(e) => handleLogin(e)}>Login</Button>
         </>
     );

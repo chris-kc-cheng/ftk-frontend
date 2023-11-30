@@ -1,5 +1,5 @@
-import React, { useEffect, useState } from 'react';
-import { login, useAuth, logout } from "./Auth";
+import React from 'react';
+import { useAuth } from "./Auth";
 import Login from './Login';
 import Dashboard from './Dashboard';
 
@@ -9,7 +9,7 @@ const App = () => {
 
   return (
     <>
-      {console.log('logged is ', loggedIn)}
+      {console.log('App logged is ', loggedIn)}
       {!loggedIn &&
         <Login />
       }
