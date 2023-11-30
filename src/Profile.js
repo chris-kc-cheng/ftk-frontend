@@ -13,6 +13,8 @@ const Profile = () => {
         {!loggedIn &&
             <p>Not logged in</p>
         }
+        <p>Node: {process.env.NODE_ENV}</p>
+        <p>API: {process.env.REACT_APP_API_ROOT}</p>
     </>
   );
 }

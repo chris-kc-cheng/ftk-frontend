@@ -12,7 +12,7 @@ const Login = () => {
         // Prevent running the handler twice
         e.preventDefault();
         console.log('login', username, password)
-        fetch('http://localhost:5000/login', {
+        fetch(`${process.env.REACT_APP_API_ROOT}/login`, {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json'
