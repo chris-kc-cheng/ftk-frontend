@@ -8,7 +8,7 @@ const Interactive = () => {
 
     const [a, setA] = useState(0);
     const [b, setB] = useState(5);
-    const [i, setI] = useState(0);
+    const [c, setC] = useState([0, 5]);
     const [sum, setSum] = useState();
 
     const handleAChange = (event, a) => {
@@ -18,11 +18,11 @@ const Interactive = () => {
         setB(b);
     }
     const handleCommit = (event) => {
-        setI(i + 1);
+        setC([a, b]);
     }
     useEffect(() => {
-        console.log(a, b)
-        authFetch("http://127.0.0.1:5000/add", {
+        if(c[0] === a && c[1] === b) {
+            authFetch("http://127.0.0.1:5000/add", {
             method: "POST",
             headers: {
                 'Content-Type': 'application/json'
@@ -33,7 +33,8 @@ const Interactive = () => {
             .then((data) => {
                 setSum(data.sum);
             })
-    }, [i]); // Adding a, b to dependency array will trigger unnecessary API calls
+        }        
+    }, [a, b, c]);
 
     return (
         <Stack direction="column">
