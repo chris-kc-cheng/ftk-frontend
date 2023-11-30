@@ -4,7 +4,7 @@ import Slider from '@mui/material/Slider';
 import Typography from '@mui/material/Typography';
 import { authFetch } from './Auth';
 
-const Interactive = () => {
+const Home = () => {
 
     const [a, setA] = useState(0);
     const [b, setB] = useState(5);
@@ -22,7 +22,7 @@ const Interactive = () => {
     }
     useEffect(() => {
         if(c[0] === a && c[1] === b) {
-            authFetch("http://127.0.0.1:5000/add", {
+            authFetch(`${process.env.REACT_APP_API_ROOT}/fund/add`, {
             method: "POST",
             headers: {
                 'Content-Type': 'application/json'
@@ -33,7 +33,7 @@ const Interactive = () => {
             .then((data) => {
                 setSum(data.sum);
             })
-        }        
+        }
     }, [a, b, c]);
 
     return (
@@ -45,4 +45,4 @@ const Interactive = () => {
     );
 }
 
-export default Interactive;
+export default Home;

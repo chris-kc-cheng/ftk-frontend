@@ -11,8 +11,7 @@ const Login = () => {
     const handleLogin = (e) => {
         // Prevent running the handler twice
         e.preventDefault();
-        console.log('login', username, password)
-        fetch(`${process.env.REACT_APP_API_ROOT}/login`, {
+        fetch(`${process.env.REACT_APP_API_ROOT}/user/login`, {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json'
@@ -26,6 +25,7 @@ const Login = () => {
             .then(token => {
                 if (token.access_token) {
                     login(token);
+                    setPassword('');
                     console.log('Login successful', token);
                 }
                 else {

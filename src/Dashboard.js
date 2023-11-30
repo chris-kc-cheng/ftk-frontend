@@ -27,7 +27,7 @@ function Dashboard(props) {
     setMobileOpen(!mobileOpen);
   };
 
-  const menu = ['Research', 'Performance', 'Client', 'Market'];
+  const menu = ['Home', 'Research', 'Performance', 'Client', 'Market'];
 
   const drawer = (
     <div>

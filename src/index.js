@@ -4,7 +4,7 @@ import { HashRouter, Route, Routes, Outlet } from "react-router-dom";
 import App from './App';
 import Profile from './Profile';
 import Note from './Note';
-import Interactive from './Interactive';
+import Home from './Home';
 import reportWebVitals from './reportWebVitals';
 import ProtectedRoute from './ProtectedRoute';
 
@@ -24,15 +24,14 @@ root.render(
             <Route path=":fundId/edit" element={<h1>Edit</h1>} />            
             <Route index element={<Note />} />
           </Route>
+          <Route path="Home" element={
+            <ProtectedRoute>
+              <Home />
+            </ProtectedRoute>} />
           <Route path="Performance" element={<h1>Performance</h1>} />
           <Route path="Client" element={<h1>Client</h1>} />
           <Route path="Market" element={<h1>Market</h1>} />
           <Route path="Profile" element={<Profile />} />
-          <Route path="Interactive" element={
-            <ProtectedRoute>
-              <Interactive />
-            </ProtectedRoute>
-          } />
         </Route>
       </Routes>
     </HashRouter>
