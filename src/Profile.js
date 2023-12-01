@@ -22,6 +22,10 @@ const Profile = () => {
   const [message, setMessage] = useState();
 
   useEffect(() => {
+    document.title = 'Profile';
+}, []);
+
+  useEffect(() => {
     authFetch(`${process.env.REACT_APP_API_ROOT}/user/profile`)
       .then((response) => response.json())
       .then((data) => {

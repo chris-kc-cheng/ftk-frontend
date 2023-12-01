@@ -11,6 +11,10 @@ const Home = () => {
     const [c, setC] = useState([0, 5]);
     const [sum, setSum] = useState();
 
+    useEffect(() => {
+        document.title = 'Home';
+    }, []);
+
     const handleAChange = (event, a) => {
         setA(a);
     }

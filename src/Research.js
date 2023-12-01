@@ -2,16 +2,17 @@ import { useEffect, useState } from 'react';
 import { authFetch } from "./Auth";
 import { useNavigate } from 'react-router-dom';
 import Autocomplete from '@mui/material/Autocomplete';
-import Button from '@mui/material/Button';
-import Divider from '@mui/material/Divider';
 import Stack from '@mui/material/Stack';
 import TextField from '@mui/material/TextField';
-import Typography from '@mui/material/Typography';
 
 const Research = () => {
 
     const [fundList, setFundList] = useState([]);
     const navigate = useNavigate();
+
+    useEffect(() => {
+        document.title = 'Research';
+    }, []);
 
     useEffect(() => {
         authFetch(`${process.env.REACT_APP_API_ROOT}/fund/all`)
