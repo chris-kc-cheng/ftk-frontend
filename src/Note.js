@@ -1,10 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import Button from '@mui/material/Button';
-import Markdown from 'react-markdown';
-import remarkGfm from 'remark-gfm';
-import remarkMath from 'remark-math';
-import rehypeKatex from 'rehype-katex';
-import 'katex/dist/katex.min.css';
+import MDEditor from '@uiw/react-md-editor';
 
 const Note = () => {
   const [data, setData] = useState([]);
@@ -23,17 +19,17 @@ const Note = () => {
       <Button variant="contained" onClick={() => {
         fetch("http://127.0.0.1:5000/notes/new", {
           method: "POST",
-          headers: {            
+          headers: {
             'Content-Type': 'application/json'
           },
-          body: JSON.stringify({content: "Some text 😋"})
+          body: JSON.stringify({ content: "Some text 😋" })
         })
       }}>Click to add
       </Button>
       {data.map(note =>
-        <div>
-          <Markdown remarkPlugins={[remarkGfm, remarkMath]} rehypePlugins={[rehypeKatex]}>{note.content}</Markdown>
-        </div>
+        <MDEditor.Markdown
+          source={note.content}
+        />
       )}
     </>
   );

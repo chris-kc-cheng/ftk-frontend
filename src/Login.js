@@ -1,7 +1,15 @@
 import { useEffect, useState } from 'react';
-import TextField from '@mui/material/TextField';
-import Button from '@mui/material/Button';
 import { login } from './Auth';
+
+import { AccountCircle } from '@mui/icons-material';
+import Button from '@mui/material/Button';
+import Card from '@mui/material/Card';
+import CardActions from '@mui/material/CardActions';
+import CardContent from '@mui/material/CardContent';
+import CardMedia from '@mui/material/CardMedia';
+import Stack from '@mui/material/Stack';
+import TextField from '@mui/material/TextField';
+import Typography from '@mui/material/Typography';
 
 const Login = () => {
 
@@ -39,11 +47,21 @@ const Login = () => {
     }
 
     return (
-        <>
-            <TextField label="Username" variant="standard" onChange={(e) => setUsername(e.target.value)} />
-            <TextField label="Password" variant="standard" onChange={(e) => setPassword(e.target.value)} type="password" />
-            <Button variant="outlined" onClick={(e) => handleLogin(e)}>Login</Button>
-        </>
+        <Card sx={{ maxWidth: 345 }}>
+            <CardMedia>
+                <AccountCircle style={{ fontSize: 160 }} />
+            </CardMedia>
+            <CardContent>
+                <Stack spacing={2}>
+                    <Typography variant="h5" component="div">Login</Typography>
+                    <TextField label="Username" variant="standard" onChange={(e) => setUsername(e.target.value)} />
+                    <TextField label="Password" variant="standard" onChange={(e) => setPassword(e.target.value)} type="password" />
+                </Stack>
+            </CardContent>
+            <CardActions>
+                <Button variant="outlined" onClick={(e) => handleLogin(e)}>Login</Button>
+            </CardActions>
+        </Card>        
     );
 }
 

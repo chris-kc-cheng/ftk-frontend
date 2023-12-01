@@ -1,7 +1,8 @@
 import * as React from 'react';
+import { NavLink, Outlet } from "react-router-dom";
+import { logout } from './Auth';
 import AppBar from '@mui/material/AppBar';
 import Box from '@mui/material/Box';
-import CssBaseline from '@mui/material/CssBaseline';
 import Divider from '@mui/material/Divider';
 import Drawer from '@mui/material/Drawer';
 import IconButton from '@mui/material/IconButton';
@@ -13,7 +14,6 @@ import ListItemText from '@mui/material/ListItemText';
 import MenuIcon from '@mui/icons-material/Menu';
 import Toolbar from '@mui/material/Toolbar';
 import Typography from '@mui/material/Typography';
-
 import HomeOutlinedIcon from '@mui/icons-material/HomeOutlined';
 import AssignmentOutlinedIcon from '@mui/icons-material/AssignmentOutlined';
 import TrendingUpOutlinedIcon from '@mui/icons-material/TrendingUpOutlined';
@@ -23,12 +23,9 @@ import SettingsOutlinedIcon from '@mui/icons-material/SettingsOutlined';
 import AccountCircleOutlinedIcon from '@mui/icons-material/AccountCircleOutlined';
 import LogoutOutlinedIcon from '@mui/icons-material/LogoutOutlined';
 
-import { NavLink, Outlet } from "react-router-dom";
-import { logout } from './Auth';
-
 const drawerWidth = 240;
 
-function Dashboard(props) {
+function Layout(props) {
   const { window } = props;
   const [mobileOpen, setMobileOpen] = React.useState(false);
 
@@ -110,7 +107,6 @@ function Dashboard(props) {
 
   return (
     <Box sx={{ display: 'flex' }}>
-      <CssBaseline />
       <AppBar
         position="fixed"
         sx={{
@@ -176,4 +172,4 @@ function Dashboard(props) {
   );
 }
 
-export default Dashboard;
+export default Layout;

@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { useParams } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
 import { authFetch } from "./Auth";
 import AssignmentOutlinedIcon from '@mui/icons-material/AssignmentOutlined';
 import Box from '@mui/material/Box';
@@ -11,6 +11,8 @@ import Stack from '@mui/material/Stack';
 import Typography from '@mui/material/Typography';
 const Fund = () => {
 
+  const navigate = useNavigate();
+
   const [fund, setFund] = useState();
   const params = useParams();
 
@@ -21,6 +23,21 @@ const Fund = () => {
         setFund(data);
       })
   }, [params.fundId]);
+
+  const handleNewNote = async () => {
+    console.log('Clicked');
+    const response = await authFetch(`${process.env.REACT_APP_API_ROOT}/note/create`, {
+      method: 'POST',
+      headers: {
+          'Content-Type': 'application/json'
+      },
+      body: JSON.stringify({
+        fundId: params.fundId
+      })
+    })
+    const message = await response.json();
+    navigate(`/Note/${message.id}`)
+  }
 
   return (
     <Box>      
@@ -50,6 +67,7 @@ const Fund = () => {
             key="New Note"
             icon={<AssignmentOutlinedIcon />}
             tooltipTitle="New Note"
+            onClick={() => handleNewNote}
           />
       </SpeedDial>      
     </Box>
