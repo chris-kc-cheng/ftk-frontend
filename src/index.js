@@ -27,7 +27,7 @@ root.render(
               <Outlet />
             </>}>
             <Route path=":fundId" element={<Fund />} />
-            <Route path=":fundId/New" element={<EditNote />} />
+            <Route path="Note/:noteId" element={<EditNote />} />
             <Route index element={<Note />} />
           </Route>
           <Route path="Home" element={

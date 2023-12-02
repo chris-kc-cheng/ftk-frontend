@@ -15,7 +15,7 @@ const Research = () => {
     }, []);
 
     useEffect(() => {
-        authFetch(`${process.env.REACT_APP_API_ROOT}/fund/all`)
+        authFetch(`${process.env.REACT_APP_API_ROOT}/fund/`)
         .then((response) => response.json())
         .then((data) => {
             setFundList(data);

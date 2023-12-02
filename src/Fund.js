@@ -9,15 +9,16 @@ import SpeedDialIcon from '@mui/material/SpeedDialIcon';
 import SpeedDialAction from '@mui/material/SpeedDialAction';
 import Stack from '@mui/material/Stack';
 import Typography from '@mui/material/Typography';
+
 const Fund = () => {
 
+  const params = useParams();
   const navigate = useNavigate();
 
-  const [fund, setFund] = useState();
-  const params = useParams();
+  const [fund, setFund] = useState();  
 
   useEffect(() => {
-    authFetch(`${process.env.REACT_APP_API_ROOT}/fund/detail/${params.fundId}`)
+    authFetch(`${process.env.REACT_APP_API_ROOT}/fund/${params.fundId}`)
       .then((response) => response.json())
       .then((data) => {
         setFund(data);
@@ -25,8 +26,7 @@ const Fund = () => {
   }, [params.fundId]);
 
   const handleNewNote = async () => {
-    console.log('Clicked');
-    const response = await authFetch(`${process.env.REACT_APP_API_ROOT}/note/create`, {
+    const response = await authFetch(`${process.env.REACT_APP_API_ROOT}/note/`, {
       method: 'POST',
       headers: {
           'Content-Type': 'application/json'
@@ -36,7 +36,7 @@ const Fund = () => {
       })
     })
     const message = await response.json();
-    navigate(`/Note/${message.id}`)
+    navigate(`/Research/Note/${message.id}`)
   }
 
   return (
@@ -67,7 +67,7 @@ const Fund = () => {
             key="New Note"
             icon={<AssignmentOutlinedIcon />}
             tooltipTitle="New Note"
-            onClick={() => handleNewNote}
+            onClick={handleNewNote}
           />
       </SpeedDial>      
     </Box>
