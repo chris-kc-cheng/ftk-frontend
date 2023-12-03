@@ -24,11 +24,11 @@ const EditNote = () => {
                 setFundName(data.fundName);
                 setContent(data.content);
                 setPublished(data.published);
-                console.log(data.published); // FIXME: Undefined
+                console.log(data.published);
             })
     }, []);
 
-    const handleSave = async () => {
+    const save = async (p) => {
         const response = await authFetch(`${process.env.REACT_APP_API_ROOT}/note/${params.noteId}`, {
             method: 'PUT',
             headers: {
@@ -36,15 +36,17 @@ const EditNote = () => {
             },
             body: JSON.stringify({
                 content: content,
-                published: published
+                published: p
             })
-        })
-        //const message = await response.json();
+        })        
     }
+
+    const handleSave = async () => {
+        await save(published);
+    }
+
     const handlePublish = async () => {
-        setPublished(true);
-        console.log("handlePublish", published)
-        await handleSave();
+        await save(true);
         navigate('/Research');
     }
 
