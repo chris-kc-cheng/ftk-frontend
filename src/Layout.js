@@ -1,8 +1,9 @@
-import * as React from 'react';
+import { useState } from 'react';
 import { NavLink, Outlet } from "react-router-dom";
 import { logout } from './Auth';
 import AppBar from '@mui/material/AppBar';
 import Box from '@mui/material/Box';
+import Collapse from '@mui/material/Collapse';
 import Divider from '@mui/material/Divider';
 import Drawer from '@mui/material/Drawer';
 import IconButton from '@mui/material/IconButton';
@@ -22,39 +23,75 @@ import InsertChartOutlinedSharpIcon from '@mui/icons-material/InsertChartOutline
 import SettingsOutlinedIcon from '@mui/icons-material/SettingsOutlined';
 import AccountCircleOutlinedIcon from '@mui/icons-material/AccountCircleOutlined';
 import LogoutOutlinedIcon from '@mui/icons-material/LogoutOutlined';
+import ExpandLess from '@mui/icons-material/ExpandLess';
+import ExpandMore from '@mui/icons-material/ExpandMore';
 
 const drawerWidth = 240;
 
 function Layout(props) {
   const { window } = props;
-  const [mobileOpen, setMobileOpen] = React.useState(false);
+  
+  const menu = [
+    {
+      path: 'Home',
+      label: 'Home',
+      icon: <HomeOutlinedIcon />,
+      subMenu: []
+    },
+    {
+      path: 'Research',
+      label: 'Research',
+      icon: <AssignmentOutlinedIcon />,
+      subMenu: [
+        {path: 'Research',
+        label: 'Latest Notes'},
+        {path: 'Research',label: 'By Asset Class'}
+      ]
+    },
+    {
+      path: 'Performance',
+      label: 'Performance',
+      icon: <TrendingUpOutlinedIcon />,
+      subMenu: [{path: 'Performance', label: 'Testing'}]
+    },
+    {
+      path: 'Client',
+      label: 'Client',
+      icon: <PeopleOutlinedIcon />,
+      subMenu: []
+    },
+    {
+      path: 'Market',
+      label: 'Market',
+      icon: <InsertChartOutlinedSharpIcon />,
+      subMenu: [
+        {path: 'Market', label: 'Public Equity'},
+        {path: 'Market', label: 'Currency'},
+        {path: 'Market', label: 'Cryptocurrency'},
+      ]
+    }
+  ];
+
+  const allClosed = new Array(menu.length).fill(false);
+
+  const [mobileOpen, setMobileOpen] = useState(false);
+  const [menuOpened, setMenuOpened] = useState(allClosed);
 
   const handleDrawerToggle = () => {
     setMobileOpen(!mobileOpen);
-  };
+  }
 
-  const menu = [
-    {
-      label: 'Home',
-      icon: <HomeOutlinedIcon />
-    },
-    {
-      label: 'Research',
-      icon: <AssignmentOutlinedIcon />
-    },
-    {
-      label: 'Performance',
-      icon: <TrendingUpOutlinedIcon />
-    },
-    {
-      label: 'Client',
-      icon: <PeopleOutlinedIcon />
-    },
-    {
-      label: 'Market',
-      icon: <InsertChartOutlinedSharpIcon />
+  const handleMenu = (index) => {
+    if (menuOpened[index]) {      
+      menuOpened[index] = false;
+      setMenuOpened([...menuOpened]);
     }
-  ];
+    else {
+      const status = [...allClosed];
+      status[index] = true;
+      setMenuOpened(status);
+    }
+  }
 
   const drawer = (
     <div>
@@ -62,14 +99,29 @@ function Layout(props) {
       <Divider />
       <List>
         {menu.map((item, index) => (
-          <ListItem key={item.label} disablePadding>
-            <ListItemButton component={NavLink} to={item.label}>
-              <ListItemIcon>
-                {item.icon}
-              </ListItemIcon>
-              <ListItemText primary={item.label} />
-            </ListItemButton>
-          </ListItem>
+          <>
+            <ListItem key={item.label} disablePadding>
+              <ListItemButton component={NavLink} to={item.label} onClick={() => handleMenu(index)}>
+                <ListItemIcon>
+                  {item.icon}
+                </ListItemIcon>
+                <ListItemText primary={item.label} />
+                {item.subMenu.length > 0 && (menuOpened[index] ? <ExpandLess /> : <ExpandMore />)}
+              </ListItemButton>
+            </ListItem>
+            <Collapse in={menuOpened[index]} timeout="auto" unmountOnExit>
+              <List component="div" disablePadding>
+                {item.subMenu.map(subItem => (
+                  <ListItemButton sx={{ pl: 4 }} component={NavLink} to={item.path}>
+                    <ListItemIcon>
+                      {subItem.icon}
+                    </ListItemIcon>
+                    <ListItemText primary={subItem.label} />
+                  </ListItemButton>
+                ))}
+              </List>
+            </Collapse>
+          </>
         ))}
       </List>
       <Divider />
