@@ -16,13 +16,20 @@ const Fund = () => {
   const navigate = useNavigate();
 
   const [fund, setFund] = useState();
+  const [notes, setNotes] = useState([]);
 
   useEffect(() => {
     authFetch(`${process.env.REACT_APP_API_ROOT}/fund/${params.fundId}`)
       .then((response) => response.json())
       .then((data) => {
         setFund(data);
-        console.log('Fund', data);
+        console.log('Fund Details', data);
+      }).catch(e => console.log(e))
+    authFetch(`${process.env.REACT_APP_API_ROOT}/fund/${params.fundId}/note`)
+      .then((response) => response.json())
+      .then((data) => {
+        setNotes(data);
+        console.log('Fund Notes', data);
       }).catch(e => console.log(e))
   }, [params.fundId]);
 
@@ -30,7 +37,7 @@ const Fund = () => {
     const response = await authFetch(`${process.env.REACT_APP_API_ROOT}/note/`, {
       method: 'POST',
       headers: {
-          'Content-Type': 'application/json'
+        'Content-Type': 'application/json'
       },
       body: JSON.stringify({
         fundId: params.fundId
@@ -41,21 +48,21 @@ const Fund = () => {
   }
 
   return (
-    <>      
+    <>
       <Stack spacing={2}>
         {fund &&
           <>
             <Stack direction="row" spacing={1}>
               {fund.assetClasses.map(assetClass =>
-                <Chip label={assetClass} />  
+                <Chip label={assetClass} />
               )}
             </Stack>
             <Typography variant="h5">{fund.name}</Typography>
             <Typography variant="subtitle1">{fund.firm}</Typography>
-            {fund.launchDate && 
+            {fund.launchDate &&
               <Typography variant="subtitle2">Launched: {fund.launchDate.$date}</Typography>
             }
-            {fund.notes && fund.notes.map(note =>
+            {notes && notes.map(note =>
               <NoteCard note={note} />
             )}
           </>
@@ -66,13 +73,13 @@ const Fund = () => {
         sx={{ position: 'fixed', bottom: 16, right: 16 }}
         icon={<SpeedDialIcon />}
       >
-          <SpeedDialAction
-            key="New Note"
-            icon={<AssignmentOutlinedIcon />}
-            tooltipTitle="New Note"
-            onClick={handleNewNote}
-          />
-      </SpeedDial>      
+        <SpeedDialAction
+          key="New Note"
+          icon={<AssignmentOutlinedIcon />}
+          tooltipTitle="New Note"
+          onClick={handleNewNote}
+        />
+      </SpeedDial>
     </>
   );
 }

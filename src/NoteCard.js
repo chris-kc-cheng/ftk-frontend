@@ -6,7 +6,6 @@ import CardHeader from '@mui/material/CardHeader';
 import CardContent from '@mui/material/CardContent';
 import Avatar from '@mui/material/Avatar';
 import IconButton from '@mui/material/IconButton';
-import Stack from '@mui/material/Stack';
 import EditIcon from '@mui/icons-material/Edit';
 import MDEditor from '@uiw/react-md-editor';
 
@@ -15,20 +14,22 @@ const NoteCard = (props) => {
     const navigate = useNavigate();
     const note = props.note;
 
+    const initial = note.authorName.split(' ').map(x => x[0]).join('');
+
     return (
         <Card sx={{ maxWidth: 800 }}>
         <CardHeader
           avatar={
             <Avatar aria-label="author">
-              {note.author.firstName[0] + note.author.lastName[0]}
+              {initial}
             </Avatar>
           }
           action={
-            <IconButton aria-label="edit" onClick={() => navigate(`/Research/Note/${note._id.$oid}`)}>
+            <IconButton aria-label="edit" onClick={() => navigate(`/Research/Note/${note.noteId.$oid}`)}>
               <EditIcon />
             </IconButton>
           }
-          title={<Button onClick={() => navigate(`/Research/${note.fund._id.$oid}`)}>{note.fund.name}</Button>}              
+          title={<Button onClick={() => navigate(`/Research/${note.fundId.$oid}`)}>{note.fundName}</Button>}
           subheader={note.modifiedDate.$date}
         >              
         </CardHeader>
