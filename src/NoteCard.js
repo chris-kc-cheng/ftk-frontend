@@ -25,7 +25,7 @@ const NoteCard = (props) => {
             </Avatar>
           }
           action={
-            <IconButton aria-label="edit" onClick={() => navigate(`/Research/Note/${note.noteId.$oid}`)}>
+            <IconButton aria-label="edit" onClick={() => navigate(`/Research/Note/${note._id.$oid}`)}>
               <EditIcon />
             </IconButton>
           }
