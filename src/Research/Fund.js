@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
-import { authFetch } from "./Auth";
+import { authFetch } from "../Auth";
 import AssignmentOutlinedIcon from '@mui/icons-material/AssignmentOutlined';
 import Chip from '@mui/material/Chip';
 import SpeedDial from '@mui/material/SpeedDial';

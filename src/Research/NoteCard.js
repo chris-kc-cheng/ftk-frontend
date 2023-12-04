@@ -1,10 +1,11 @@
 import React from 'react';
 import { useNavigate } from 'react-router-dom';
+import Avatar from '@mui/material/Avatar';
 import Button from '@mui/material/Button';
 import Card from '@mui/material/Card';
 import CardHeader from '@mui/material/CardHeader';
 import CardContent from '@mui/material/CardContent';
-import Avatar from '@mui/material/Avatar';
+import Chip from '@mui/material/Chip';
 import IconButton from '@mui/material/IconButton';
 import EditIcon from '@mui/icons-material/Edit';
 import MDEditor from '@uiw/react-md-editor';
@@ -29,7 +30,11 @@ const NoteCard = (props) => {
               <EditIcon />
             </IconButton>
           }
-          title={<Button onClick={() => navigate(`/Research/${note.fundId.$oid}`)}>{note.fundName}</Button>}
+          title={
+          <>
+            <Button onClick={() => navigate(`/Research/${note.fundId.$oid}`)}>{note.fundName}</Button>
+            {!note.published && <Chip label="Draft" color="warning" size="small" />}
+          </>}
           subheader={note.modifiedDate.$date}
         >              
         </CardHeader>

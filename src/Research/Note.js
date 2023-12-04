@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { authFetch } from "./Auth";
+import { authFetch } from "../Auth";
 import NoteCard from './NoteCard';
 import Button from '@mui/material/Button';
 import MenuItem from '@mui/material/MenuItem';

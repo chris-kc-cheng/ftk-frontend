@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-import { authFetch } from "./Auth";
+import { authFetch } from "../Auth";
 import { useNavigate } from 'react-router-dom';
 import Autocomplete from '@mui/material/Autocomplete';
 import Stack from '@mui/material/Stack';

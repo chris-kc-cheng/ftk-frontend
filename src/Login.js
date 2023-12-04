@@ -7,6 +7,7 @@ import Card from '@mui/material/Card';
 import CardActions from '@mui/material/CardActions';
 import CardContent from '@mui/material/CardContent';
 import CardMedia from '@mui/material/CardMedia';
+import Grid from '@mui/material/Grid';
 import Stack from '@mui/material/Stack';
 import TextField from '@mui/material/TextField';
 import Typography from '@mui/material/Typography';
@@ -44,24 +45,32 @@ const Login = () => {
                     console.log('Login failed');
                 }
             })
+            .catch(error => {
+                console.log(error);
+            })
     }
 
     return (
-        <Card sx={{ maxWidth: 345 }}>
-            <CardMedia>
-                <AccountCircle style={{ fontSize: 160 }} />
-            </CardMedia>
-            <CardContent>
-                <Stack spacing={2}>
-                    <Typography variant="h5" component="div">Login</Typography>
-                    <TextField label="Username" variant="standard" onChange={(e) => setUsername(e.target.value)} />
-                    <TextField label="Password" variant="standard" onChange={(e) => setPassword(e.target.value)} type="password" />
-                </Stack>
-            </CardContent>
-            <CardActions>
-                <Button variant="outlined" onClick={(e) => handleLogin(e)}>Login</Button>
-            </CardActions>
-        </Card>        
+        <Grid container
+            sx={{ height: "100vh" }}
+            alignItems="center"
+            justifyContent="center">
+            <Card sx={{ width: 240 }}>
+                <CardMedia>
+                    <AccountCircle style={{ fontSize: 80 }} />
+                </CardMedia>
+                <CardContent>
+                    <Stack spacing={2}>
+                        <Typography variant="h5" component="div">Login</Typography>
+                        <TextField label="Username" variant="standard" onChange={(e) => setUsername(e.target.value)} />
+                        <TextField label="Password" variant="standard" onChange={(e) => setPassword(e.target.value)} type="password" />
+                    </Stack>
+                </CardContent>
+                <CardActions>
+                    <Button variant="outlined" onClick={(e) => handleLogin(e)}>Login</Button>
+                </CardActions>
+            </Card>
+        </Grid>
     );
 }
 
