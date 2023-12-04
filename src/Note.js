@@ -12,13 +12,6 @@ const Note = () => {
   const [limit, setLimit] = useState(50);
   const [data, setData] = useState([]);
 
-  const fetchNotes = async () => {
-    const response = await authFetch(`${process.env.REACT_APP_API_ROOT}/note/?skip=${0}&limit=${limit}`)  // Trailing slash cannot be removed
-    const json = await response.json();
-    setData(json);
-    console.log('fetchNotes', json);
-  }
-
   const handleLoadMore = async () => {
     const response = await authFetch(`${process.env.REACT_APP_API_ROOT}/note/?skip=${data.length}&limit=${limit}`)
     const json = await response.json();
@@ -27,8 +20,14 @@ const Note = () => {
   }
 
   useEffect(() => {
+    const fetchNotes = async () => {
+      const response = await authFetch(`${process.env.REACT_APP_API_ROOT}/note/?skip=${0}&limit=${limit}`)  // Trailing slash cannot be removed
+      const json = await response.json();
+      setData(json);
+      console.log('fetchNotes', json);
+    }
     fetchNotes(0, 50);
-  }, []);
+  }, [limit]);
 
   return (
     <>
