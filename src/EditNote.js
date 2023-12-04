@@ -26,10 +26,10 @@ const EditNote = () => {
                 setPublished(data.published);
                 console.log(data.published);
             })
-    }, []);
+    }, [params.noteId]);
 
     const save = async (p) => {
-        const response = await authFetch(`${process.env.REACT_APP_API_ROOT}/note/${params.noteId}`, {
+        await authFetch(`${process.env.REACT_APP_API_ROOT}/note/${params.noteId}`, {
             method: 'PUT',
             headers: {
                 'Content-Type': 'application/json'
