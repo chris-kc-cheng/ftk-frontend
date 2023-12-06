@@ -12,7 +12,7 @@ const Performance = () => {
     const [data, setData] = useState();
 
     useEffect(() => {
-        authFetch(`${process.env.REACT_APP_API_ROOT}/performance/test`)
+        authFetch(`${process.env.REACT_APP_API_ROOT}/risk/test`)
             .then((response) => response.json())
             .then((data) => {
                 setData(data);

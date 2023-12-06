@@ -26,16 +26,16 @@ const NoteCard = (props) => {
             </Avatar>
           }
           action={
-            <IconButton aria-label="edit" onClick={() => navigate(`/Research/Note/${note._id.$oid}`)}>
+            <IconButton aria-label="edit" onClick={() => navigate(`/Research/Note/${note._id}`)}>
               <EditIcon />
             </IconButton>
           }
           title={
           <>
-            <Button onClick={() => navigate(`/Research/${note.fundId.$oid}`)}>{note.fundName}</Button>
+            <Button style={{textAlign: 'left'}} onClick={() => navigate(`/Research/${note.fundId}`)}>{note.fundName}</Button>
             {!note.published && <Chip label="Draft" color="warning" size="small" />}
           </>}
-          subheader={note.modifiedDate.$date}
+          subheader={note.modifiedDate}
         >              
         </CardHeader>
         <CardContent>

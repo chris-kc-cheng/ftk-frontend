@@ -13,7 +13,7 @@ const Note = () => {
   const [data, setData] = useState([]);
 
   const handleLoadMore = async () => {
-    const response = await authFetch(`${process.env.REACT_APP_API_ROOT}/note/?skip=${data.length}&limit=${limit}`)
+    const response = await authFetch(`${process.env.REACT_APP_API_ROOT}/note?skip=${data.length}&limit=${limit}`)
     const json = await response.json();
     data.push(...json)
     setData([...data]); // Shadow copy thus a different reference for React to rerender
@@ -21,7 +21,7 @@ const Note = () => {
 
   useEffect(() => {
     const fetchNotes = async () => {
-      const response = await authFetch(`${process.env.REACT_APP_API_ROOT}/note/?skip=${0}&limit=${limit}`)  // Trailing slash cannot be removed
+      const response = await authFetch(`${process.env.REACT_APP_API_ROOT}/note?skip=${0}&limit=${limit}`)
       const json = await response.json();
       setData(json);
       console.log('fetchNotes', json);
@@ -31,13 +31,11 @@ const Note = () => {
 
   return (
     <>
-      {/*}
       <Stack spacing={2}>
         {data.map(note =>
           <NoteCard note={note} />
         )}
       </Stack>
-        */}
       <Stack direction="row" spacing={2}>
         <Button variant="text" onClick={handleLoadMore}>Load more ...</Button>
         <Select

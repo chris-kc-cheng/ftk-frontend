@@ -34,17 +34,11 @@ const Fund = () => {
   }, [params.fundId]);
 
   const handleNewNote = async () => {
-    const response = await authFetch(`${process.env.REACT_APP_API_ROOT}/note/`, {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json'
-      },
-      body: JSON.stringify({
-        fundId: params.fundId
-      })
+    const response = await authFetch(`${process.env.REACT_APP_API_ROOT}/note/${params.fundId}`, {
+      method: 'POST'
     })
-    const message = await response.json();
-    navigate(`/Research/Note/${message.id}`)
+    const note = await response.json();
+    navigate(`/Research/Note/${note._id}`)
   }
 
   return (
@@ -62,10 +56,9 @@ const Fund = () => {
             {fund.launchDate &&
               <Typography variant="subtitle2">Launched: {fund.launchDate}</Typography>
             }
-            {/*notes && notes.map(note =>
+            {notes && notes.map(note =>
               <NoteCard note={note} />
-            )*/}
-
+            )}
           </>
         }
       </Stack>
