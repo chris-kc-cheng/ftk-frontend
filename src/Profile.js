@@ -1,7 +1,6 @@
 import { useEffect, useState } from 'react';
 import { authFetch } from "./Auth";
 import Alert from '@mui/material/Alert';
-import AlertTitle from '@mui/material/AlertTitle';
 import Avatar from '@mui/material/Avatar';
 import Box from '@mui/material/Box';
 import Button from '@mui/material/Button';
@@ -26,7 +25,7 @@ const Profile = () => {
 }, []);
 
   useEffect(() => {
-    authFetch(`${process.env.REACT_APP_API_ROOT}/user/profile`)
+    authFetch(`${process.env.REACT_APP_API_ROOT}/user`)
       .then((response) => response.json())
       .then((data) => {
         setData(data);
@@ -35,15 +34,15 @@ const Profile = () => {
 
   const handleClick = async () => {
       try {
-        const response = await authFetch(`${process.env.REACT_APP_API_ROOT}/user/reset`, {
-          method: 'POST',
+        const response = await authFetch(`${process.env.REACT_APP_API_ROOT}/user/password`, {
+          method: 'PUT',
           headers: {
               'Content-Type': 'application/json'
           },
           body: JSON.stringify({
-            oldPassword: oldPassword,
-            newPassword: newPassword,
-            confirmPassword: confirmPassword
+            old_password: oldPassword,
+            new_password: newPassword,
+            confirm_password: confirmPassword
           })
         })
         const message = await response.json();
@@ -118,14 +117,9 @@ const Profile = () => {
         <Button variant="contained" style={{maxWidth: '36px'}} onClick={handleClick}>Save</Button>
         {message &&
           <Alert severity={message.status}>
-          <AlertTitle>{message.status}</AlertTitle>
             {message.message}
         </Alert>
         }
-
-        <p>JSON: {JSON.stringify(data)}</p>
-        <p>Environment: {process.env.NODE_ENV}</p>
-        <p>API: {process.env.REACT_APP_API_ROOT}</p>
       </Stack>
     </Box>
   );

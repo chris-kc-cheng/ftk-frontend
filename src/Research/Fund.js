@@ -60,11 +60,12 @@ const Fund = () => {
             <Typography variant="h5">{fund.name}</Typography>
             <Typography variant="subtitle1">{fund.firm}</Typography>
             {fund.launchDate &&
-              <Typography variant="subtitle2">Launched: {fund.launchDate.$date}</Typography>
+              <Typography variant="subtitle2">Launched: {fund.launchDate}</Typography>
             }
-            {notes && notes.map(note =>
+            {/*notes && notes.map(note =>
               <NoteCard note={note} />
-            )}
+            )*/}
+
           </>
         }
       </Stack>

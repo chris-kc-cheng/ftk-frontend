@@ -31,11 +31,13 @@ const Note = () => {
 
   return (
     <>
+      {/*}
       <Stack spacing={2}>
         {data.map(note =>
           <NoteCard note={note} />
         )}
       </Stack>
+        */}
       <Stack direction="row" spacing={2}>
         <Button variant="text" onClick={handleLoadMore}>Load more ...</Button>
         <Select

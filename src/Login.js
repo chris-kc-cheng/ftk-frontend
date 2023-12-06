@@ -24,16 +24,13 @@ const Login = () => {
     const handleLogin = (e) => {
         // Prevent running the handler twice
         e.preventDefault();
-        fetch(`${process.env.REACT_APP_API_ROOT}/user/login`, {
+        const data = new FormData();
+        data.append("username", username);
+        data.append("password", password);
+        fetch(`${process.env.REACT_APP_API_ROOT}/token`, {
             method: 'POST',
-            headers: {
-                'Content-Type': 'application/json'
-            },
-            body: JSON.stringify({
-                username: username,
-                password: password
-            })
-        })
+            body: data
+        })        
             .then(data => data.json())
             .then(token => {
                 if (token.access_token) {

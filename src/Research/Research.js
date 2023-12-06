@@ -15,7 +15,7 @@ const Research = () => {
     }, []);
 
     useEffect(() => {
-        authFetch(`${process.env.REACT_APP_API_ROOT}/fund/`)
+        authFetch(`${process.env.REACT_APP_API_ROOT}/fund`)
         .then((response) => response.json())
         .then((data) => {
             setFundList(data);
@@ -29,11 +29,11 @@ const Research = () => {
                 id="combo-box-demo"
                 options={fundList}
                 getOptionLabel={(option) => option.name}
-                isOptionEqualToValue={(option, value) => option._id.$oid === value._id.$oid}
+                isOptionEqualToValue={(option, value) => option._id === value._id}
                 onChange={(event, newValue) => {
                     if (newValue) {
-                        console.log(newValue.name, newValue._id.$oid, `/Research/${newValue._id.$oid}`);
-                        navigate(`/Research/${newValue._id.$oid}`); // Not redirect
+                        console.log(newValue.name, newValue._id, `/Research/${newValue._id}`);
+                        navigate(`/Research/${newValue._id}`); // Not redirect
                     }
                 }}
                 sx={{ width: 300 }}
