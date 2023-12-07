@@ -35,7 +35,7 @@ const NoteCard = (props) => {
             <Button style={{textAlign: 'left'}} onClick={() => navigate(`/Research/${note.fundId}`)}>{note.fundName}</Button>
             {!note.published && <Chip label="Draft" color="warning" size="small" />}
           </>}
-          subheader={note.modifiedDate}
+          subheader={new Date(note.modifiedDate).toString()}
         >              
         </CardHeader>
         <CardContent>

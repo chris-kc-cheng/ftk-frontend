@@ -25,7 +25,7 @@ const Admin = () => {
 
     const handleCreateFund = async () => {
         try {
-            const response = await authFetch(`${process.env.REACT_APP_API_ROOT}/fund`, {
+            const response = await authFetch(`${process.env.REACT_APP_API_ROOT}/fund/`, {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json'

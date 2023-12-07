@@ -27,7 +27,7 @@ const Login = () => {
         const data = new FormData();
         data.append("username", username);
         data.append("password", password);
-        fetch(`${process.env.REACT_APP_API_ROOT}/token`, {
+        fetch(`${process.env.REACT_APP_API_ROOT}/user/login`, {
             method: 'POST',
             body: data
         })        
