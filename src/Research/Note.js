@@ -24,7 +24,6 @@ const Note = () => {
       const response = await authFetch(`${process.env.REACT_APP_API_ROOT}/note/?skip=${0}&limit=${limit}`)
       const json = await response.json();
       setData(json);
-      console.log('fetchNotes', json);
     }
     fetchNotes(0, 50);
   }, [limit]);
@@ -33,7 +32,7 @@ const Note = () => {
     <>
       <Stack spacing={2}>
         {data.map(note =>
-          <NoteCard note={note} />
+          <NoteCard key={note._id} note={note} />
         )}
       </Stack>
       <Stack direction="row" spacing={2}>
@@ -44,7 +43,7 @@ const Note = () => {
           onChange={(e) => setLimit(e.target.value)}
         >
           {options.map((option => 
-            <MenuItem value={option}>{option}</MenuItem>
+            <MenuItem key={option} value={option}>{option}</MenuItem>
           ))}          
         </Select>
       </Stack>

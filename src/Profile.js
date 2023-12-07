@@ -83,7 +83,7 @@ const Profile = () => {
             <FormControlLabel control={<Checkbox disabled checked={data.isActive} />} label="Active" />
             <Stack direction="row" spacing={1}>
               {data.roles.map(role =>
-                <Chip label={role} />
+                <Chip key={role} label={role} />
               )}
             </Stack>
           </>

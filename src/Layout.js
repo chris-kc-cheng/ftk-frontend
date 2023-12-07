@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import React, { useState } from 'react';
 import { NavLink, Outlet } from "react-router-dom";
 import { logout } from './Auth';
 import AppBar from '@mui/material/AppBar';
@@ -30,7 +30,7 @@ const drawerWidth = 240;
 
 function Layout(props) {
   const { window } = props;
-  
+
   const menu = [
     {
       path: 'Home',
@@ -43,16 +43,18 @@ function Layout(props) {
       label: 'Research',
       icon: <AssignmentOutlinedIcon />,
       subMenu: [
-        {path: 'Research',
-        label: 'Latest Notes'},
-        {path: 'Research',label: 'By Asset Class'}
+        {
+          path: 'Research',
+          label: 'Latest Notes'
+        },
+        { path: 'Research', label: 'By Asset Class' }
       ]
     },
     {
       path: 'Performance',
       label: 'Performance',
       icon: <TrendingUpOutlinedIcon />,
-      subMenu: [{path: 'Performance', label: 'Testing'}]
+      subMenu: [{ path: 'Performance', label: 'Testing' }]
     },
     {
       path: 'Client',
@@ -65,9 +67,9 @@ function Layout(props) {
       label: 'Market',
       icon: <InsertChartOutlinedSharpIcon />,
       subMenu: [
-        {path: 'Market', label: 'Public Equity'},
-        {path: 'Market', label: 'Currency'},
-        {path: 'Market', label: 'Cryptocurrency'},
+        { path: 'Market', label: 'Public Equity' },
+        { path: 'Market', label: 'Currency' },
+        { path: 'Market', label: 'Cryptocurrency' },
       ]
     }
   ];
@@ -82,7 +84,7 @@ function Layout(props) {
   }
 
   const handleMenu = (index) => {
-    if (menuOpened[index]) {      
+    if (menuOpened[index]) {
       menuOpened[index] = false;
       setMenuOpened([...menuOpened]);
     }
@@ -99,8 +101,8 @@ function Layout(props) {
       <Divider />
       <List>
         {menu.map((item, index) => (
-          <>
-            <ListItem key={item.label} disablePadding>
+          <React.Fragment key={item.label}>
+            <ListItem disablePadding>
               <ListItemButton component={NavLink} to={item.label} onClick={() => handleMenu(index)}>
                 <ListItemIcon>
                   {item.icon}
@@ -112,7 +114,7 @@ function Layout(props) {
             <Collapse in={menuOpened[index]} timeout="auto" unmountOnExit>
               <List component="div" disablePadding>
                 {item.subMenu.map(subItem => (
-                  <ListItemButton sx={{ pl: 4 }} component={NavLink} to={item.path}>
+                  <ListItemButton key={subItem.label} sx={{ pl: 4 }} component={NavLink} to={item.path}>
                     <ListItemIcon>
                       {subItem.icon}
                     </ListItemIcon>
@@ -121,12 +123,12 @@ function Layout(props) {
                 ))}
               </List>
             </Collapse>
-          </>
+          </React.Fragment>
         ))}
       </List>
       <Divider />
       <List>
-      <ListItem key='Admin' disablePadding>
+        <ListItem key='Admin' disablePadding>
           <ListItemButton component={NavLink} to="Admin">
             <ListItemIcon>
               <SettingsOutlinedIcon />

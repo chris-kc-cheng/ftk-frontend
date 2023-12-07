@@ -34,7 +34,8 @@ const Admin = () => {
                     name: fundName,
                     firm: firmName,
                     assetClasses: assetClasses,
-                    launchDate: launchDate && launchDate.toISOString().split('T')[0],
+                    // ISOString format is 2023-12-01T05:00:00.000Z
+                    launchDate: launchDate
                 })
             })
             const result = await response.json();

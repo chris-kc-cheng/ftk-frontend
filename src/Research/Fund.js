@@ -23,13 +23,11 @@ const Fund = () => {
       .then((response) => response.json())
       .then((data) => {
         setFund(data);
-        console.log('Fund Details', data);
       }).catch(e => console.log(e))
     authFetch(`${process.env.REACT_APP_API_ROOT}/fund/${params.fundId}/note`)
       .then((response) => response.json())
       .then((data) => {
         setNotes(data);
-        console.log('Fund Notes', data);
       }).catch(e => console.log(e))
   }, [params.fundId]);
 
@@ -48,7 +46,7 @@ const Fund = () => {
           <>
             <Stack direction="row" spacing={1}>
               {fund.assetClasses.map(assetClass =>
-                <Chip label={assetClass} />
+                <Chip key={assetClass} label={assetClass} />
               )}
             </Stack>
             <Typography variant="h5">{fund.name}</Typography>
@@ -57,7 +55,7 @@ const Fund = () => {
               <Typography variant="subtitle2">Launched: {fund.launchDate}</Typography>
             }
             {notes && notes.map(note =>
-              <NoteCard note={note} />
+              <NoteCard key={note._id} note={note} />
             )}
           </>
         }
