@@ -25,7 +25,7 @@ const Profile = () => {
 }, []);
 
   useEffect(() => {
-    authFetch(`${process.env.REACT_APP_API_ROOT}/user`)
+    authFetch(`${process.env.REACT_APP_API_ROOT}/user/`)
       .then((response) => response.json())
       .then((data) => {
         setData(data);
