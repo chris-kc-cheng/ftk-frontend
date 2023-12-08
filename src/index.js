@@ -4,6 +4,7 @@ import { HashRouter, Route, Routes, Outlet } from "react-router-dom";
 import App from './App';
 import Research from './Research/Research';
 import Performance from './Performance/Performance';
+import Data from './Performance/Data';
 import Admin from './Admin';
 import Profile from './Profile';
 import Fund from './Research/Fund';
@@ -18,22 +19,30 @@ root.render(
   <React.StrictMode>
 
     <HashRouter>
-      <Routes>
+      <Routes>        
         <Route path="/" element={<App />}>
           <Route index element={<h1>Index</h1>} />
+          <Route path="Home" element={<Home />} />
           <Route path="Research" element={
             <>
               <Research />
               <Outlet />
             </>}>
-            <Route path=":fundId" element={<Fund />} />
-            <Route path="Note/:noteId" element={<EditNote />} />
             <Route index element={<Note />} />
+            <Route path=":fundId" element={<Fund />} />
+            <Route path="Note/:noteId" element={<EditNote />} />            
+          </Route>          
+          <Route path="Risk">
+            <Route index element={<Performance />} />
+            <Route path="Data" element={<Data />} />
           </Route>
-          <Route path="Home" element={<Home />} />
-          <Route path="Performance" element={<Performance />} />
           <Route path="Client" element={<h1>Client</h1>} />
-          <Route path="Market" element={<h1>Market</h1>} />
+          <Route path="Market">
+            <Route index element={<h1>Market</h1>} />
+            <Route path="Equity" element={<h1>Equity</h1>} />
+            <Route path="Currency" element={<h1>Currency</h1>} />
+            <Route path="Cryptocurrency" element={<h1>Cryptocurrency</h1>} />
+          </Route>
           <Route path="Admin" element={<Admin />} />
           <Route path="Profile" element={<Profile />} />
         </Route>

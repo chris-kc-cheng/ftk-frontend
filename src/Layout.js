@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { NavLink, Outlet } from "react-router-dom";
 import { logout } from './Auth';
 import AppBar from '@mui/material/AppBar';
+import Avatar from '@mui/material/Avatar';
 import Box from '@mui/material/Box';
 import Collapse from '@mui/material/Collapse';
 import Divider from '@mui/material/Divider';
@@ -25,6 +26,9 @@ import AccountCircleOutlinedIcon from '@mui/icons-material/AccountCircleOutlined
 import LogoutOutlinedIcon from '@mui/icons-material/LogoutOutlined';
 import ExpandLess from '@mui/icons-material/ExpandLess';
 import ExpandMore from '@mui/icons-material/ExpandMore';
+import PersonIcon from '@mui/icons-material/Person';
+import MenuItem from '@mui/material/MenuItem';
+import Menu from '@mui/material/Menu';
 
 const drawerWidth = 240;
 
@@ -44,17 +48,20 @@ function Layout(props) {
       icon: <AssignmentOutlinedIcon />,
       subMenu: [
         {
-          path: 'Research',
+          path: '',
           label: 'Latest Notes'
         },
-        { path: 'Research', label: 'By Asset Class' }
+        { path: 'AssetClass', label: 'By Asset Class' }
       ]
     },
     {
-      path: 'Performance',
-      label: 'Performance',
+      path: 'Risk',
+      label: 'Risk',
       icon: <TrendingUpOutlinedIcon />,
-      subMenu: [{ path: 'Performance', label: 'Testing' }]
+      subMenu: [
+        { path: '', label: 'Performance' },
+        { path: 'Data', label: 'Data' },
+      ]
     },
     {
       path: 'Client',
@@ -67,15 +74,22 @@ function Layout(props) {
       label: 'Market',
       icon: <InsertChartOutlinedSharpIcon />,
       subMenu: [
-        { path: 'Market', label: 'Public Equity' },
-        { path: 'Market', label: 'Currency' },
-        { path: 'Market', label: 'Cryptocurrency' },
+        { path: 'Equity', label: 'Equity' },
+        { path: 'Currency', label: 'Currency' },
+        { path: 'Cryptocurrency', label: 'Cryptocurrency' },
       ]
-    }
+    },
+    {
+      path: 'Admin',
+      label: 'Admin',
+      icon: <SettingsOutlinedIcon />,
+      subMenu: []
+    }    
   ];
 
   const allClosed = new Array(menu.length).fill(false);
 
+  const [anchorEl, setAnchorEl] = useState(null);
   const [mobileOpen, setMobileOpen] = useState(false);
   const [menuOpened, setMenuOpened] = useState(allClosed);
 
@@ -114,7 +128,7 @@ function Layout(props) {
             <Collapse in={menuOpened[index]} timeout="auto" unmountOnExit>
               <List component="div" disablePadding>
                 {item.subMenu.map(subItem => (
-                  <ListItemButton key={subItem.label} sx={{ pl: 4 }} component={NavLink} to={item.path}>
+                  <ListItemButton key={subItem.label} sx={{ pl: 4 }} component={NavLink} to={`${item.label}/${subItem.path}`}>
                     <ListItemIcon>
                       {subItem.icon}
                     </ListItemIcon>
@@ -125,33 +139,6 @@ function Layout(props) {
             </Collapse>
           </React.Fragment>
         ))}
-      </List>
-      <Divider />
-      <List>
-        <ListItem key='Admin' disablePadding>
-          <ListItemButton component={NavLink} to="Admin">
-            <ListItemIcon>
-              <SettingsOutlinedIcon />
-            </ListItemIcon>
-            <ListItemText primary='Admin' />
-          </ListItemButton>
-        </ListItem>
-        <ListItem key='Profile' disablePadding>
-          <ListItemButton component={NavLink} to="Profile">
-            <ListItemIcon>
-              <AccountCircleOutlinedIcon />
-            </ListItemIcon>
-            <ListItemText primary='Profile' />
-          </ListItemButton>
-        </ListItem>
-        <ListItem key='Logout' disablePadding>
-          <ListItemButton onClick={() => logout()}>
-            <ListItemIcon>
-              <LogoutOutlinedIcon />
-            </ListItemIcon>
-            <ListItemText primary='Logout' />
-          </ListItemButton>
-        </ListItem>
       </List>
     </div>
   );
@@ -169,6 +156,7 @@ function Layout(props) {
         }}
       >
         <Toolbar>
+        <Box display='flex' sx={{ flexGrow: 1 }}>
           <IconButton
             color="inherit"
             aria-label="open drawer"
@@ -181,6 +169,47 @@ function Layout(props) {
           <Typography variant="h6" noWrap component="div">
             Dashboard
           </Typography>
+          </Box>          
+            <IconButton
+              size="large"
+              aria-label="account of current user"
+              aria-controls="menu-appbar"
+              aria-haspopup="true"
+              onClick={(event) => setAnchorEl(event.currentTarget)}
+              color="inherit"
+            >
+              <Avatar>
+                <PersonIcon />
+              </Avatar>
+            </IconButton>            
+            <Menu
+              id="menu-appbar"
+              anchorEl={anchorEl}
+              anchorOrigin={{
+                vertical: 'top',
+                horizontal: 'right',
+              }}
+              keepMounted
+              transformOrigin={{
+                vertical: 'top',
+                horizontal: 'right',
+              }}
+              open={Boolean(anchorEl)}
+              onClose={() => setAnchorEl(null)}
+            >
+              <MenuItem component={NavLink} to="Profile">
+                <ListItemIcon>
+                  <AccountCircleOutlinedIcon />
+                </ListItemIcon>
+                <ListItemText primary="Profile" />                
+              </MenuItem>
+              <MenuItem onClick={() => logout()}>
+                <ListItemIcon>
+                  <LogoutOutlinedIcon />
+                </ListItemIcon>
+                <ListItemText primary="Logout" />
+              </MenuItem>
+            </Menu>
         </Toolbar>
       </AppBar>
       <Box
