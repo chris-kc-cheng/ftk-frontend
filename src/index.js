@@ -3,6 +3,8 @@ import ReactDOM from 'react-dom/client';
 import { HashRouter, Route, Routes, Outlet } from "react-router-dom";
 import App from './App';
 import Research from './Research/Research';
+import AssetClasses from './Research/AssetClasses';
+import AssetClass from './Research/AssetClass';
 import Performance from './Performance/Performance';
 import Data from './Performance/Data';
 import Admin from './Admin';
@@ -27,10 +29,14 @@ root.render(
             <>
               <Research />
               <Outlet />
-            </>}>
+            </>}>            
             <Route index element={<Note />} />
+            <Route path="AssetClass">
+              <Route index element={<AssetClasses />} />
+              <Route path=":assetClass" element={<AssetClass />} />
+            </Route>
             <Route path=":fundId" element={<Fund />} />
-            <Route path="Note/:noteId" element={<EditNote />} />            
+            <Route path="Note/:noteId" element={<EditNote />} />
           </Route>          
           <Route path="Risk">
             <Route index element={<Performance />} />

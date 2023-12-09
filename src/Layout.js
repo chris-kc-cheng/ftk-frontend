@@ -3,7 +3,6 @@ import { authFetch } from "./Auth";
 import { NavLink, Outlet } from "react-router-dom";
 import { logout } from './Auth';
 import AppBar from '@mui/material/AppBar';
-import Avatar from '@mui/material/Avatar';
 import Box from '@mui/material/Box';
 import Collapse from '@mui/material/Collapse';
 import Divider from '@mui/material/Divider';
@@ -29,10 +28,9 @@ import ExpandLess from '@mui/icons-material/ExpandLess';
 import ExpandMore from '@mui/icons-material/ExpandMore';
 import MenuItem from '@mui/material/MenuItem';
 import Menu from '@mui/material/Menu';
+import ColoredAvatar from './Util/ColoredAvatar';
 
 const drawerWidth = 240;
-
-const initial = (name) => name.split(" ").map(x => x[0]).join("")
 
 const menu = [
   {
@@ -189,9 +187,7 @@ function Layout(props) {
               onClick={(event) => setAnchorEl(event.currentTarget)}
               color="inherit"
             >
-              <Avatar>
-                {user ? initial(user.firstName + " " + user.lastName) : "?"}
-              </Avatar>
+              <ColoredAvatar name={user ? user.firstName + " " + user.lastName : "?"} />
             </IconButton>            
             <Menu
               id="menu-appbar"
