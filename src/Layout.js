@@ -1,4 +1,5 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
+import { authFetch } from "./Auth";
 import { NavLink, Outlet } from "react-router-dom";
 import { logout } from './Auth';
 import AppBar from '@mui/material/AppBar';
@@ -26,72 +27,82 @@ import AccountCircleOutlinedIcon from '@mui/icons-material/AccountCircleOutlined
 import LogoutOutlinedIcon from '@mui/icons-material/LogoutOutlined';
 import ExpandLess from '@mui/icons-material/ExpandLess';
 import ExpandMore from '@mui/icons-material/ExpandMore';
-import PersonIcon from '@mui/icons-material/Person';
 import MenuItem from '@mui/material/MenuItem';
 import Menu from '@mui/material/Menu';
 
 const drawerWidth = 240;
 
+const initial = (name) => name.split(" ").map(x => x[0]).join("")
+
+const menu = [
+  {
+    path: 'Home',
+    label: 'Home',
+    icon: <HomeOutlinedIcon />,
+    subMenu: []
+  },
+  {
+    path: 'Research',
+    label: 'Research',
+    icon: <AssignmentOutlinedIcon />,
+    subMenu: [
+      {
+        path: '',
+        label: 'Latest Notes'
+      },
+      { path: 'AssetClass', label: 'By Asset Class' }
+    ]
+  },
+  {
+    path: 'Risk',
+    label: 'Risk',
+    icon: <TrendingUpOutlinedIcon />,
+    subMenu: [
+      { path: '', label: 'Performance' },
+      { path: 'Data', label: 'Data' },
+    ]
+  },
+  {
+    path: 'Client',
+    label: 'Client',
+    icon: <PeopleOutlinedIcon />,
+    subMenu: []
+  },
+  {
+    path: 'Market',
+    label: 'Market',
+    icon: <InsertChartOutlinedSharpIcon />,
+    subMenu: [
+      { path: 'Equity', label: 'Equity' },
+      { path: 'Currency', label: 'Currency' },
+      { path: 'Cryptocurrency', label: 'Cryptocurrency' },
+    ]
+  },
+  {
+    path: 'Admin',
+    label: 'Admin',
+    icon: <SettingsOutlinedIcon />,
+    subMenu: []
+  }    
+];
+
 function Layout(props) {
   const { window } = props;
-
-  const menu = [
-    {
-      path: 'Home',
-      label: 'Home',
-      icon: <HomeOutlinedIcon />,
-      subMenu: []
-    },
-    {
-      path: 'Research',
-      label: 'Research',
-      icon: <AssignmentOutlinedIcon />,
-      subMenu: [
-        {
-          path: '',
-          label: 'Latest Notes'
-        },
-        { path: 'AssetClass', label: 'By Asset Class' }
-      ]
-    },
-    {
-      path: 'Risk',
-      label: 'Risk',
-      icon: <TrendingUpOutlinedIcon />,
-      subMenu: [
-        { path: '', label: 'Performance' },
-        { path: 'Data', label: 'Data' },
-      ]
-    },
-    {
-      path: 'Client',
-      label: 'Client',
-      icon: <PeopleOutlinedIcon />,
-      subMenu: []
-    },
-    {
-      path: 'Market',
-      label: 'Market',
-      icon: <InsertChartOutlinedSharpIcon />,
-      subMenu: [
-        { path: 'Equity', label: 'Equity' },
-        { path: 'Currency', label: 'Currency' },
-        { path: 'Cryptocurrency', label: 'Cryptocurrency' },
-      ]
-    },
-    {
-      path: 'Admin',
-      label: 'Admin',
-      icon: <SettingsOutlinedIcon />,
-      subMenu: []
-    }    
-  ];
 
   const allClosed = new Array(menu.length).fill(false);
 
   const [anchorEl, setAnchorEl] = useState(null);
   const [mobileOpen, setMobileOpen] = useState(false);
   const [menuOpened, setMenuOpened] = useState(allClosed);
+  const [user, setUser] = useState();
+
+  useEffect(() => {
+    authFetch(`${process.env.REACT_APP_API_ROOT}/user/`)
+      .then((response) => response.json())
+      .then((data) => {
+        setUser(data);
+      })
+  }, []);
 
   const handleDrawerToggle = () => {
     setMobileOpen(!mobileOpen);
@@ -179,7 +190,7 @@ function Layout(props) {
               color="inherit"
             >
               <Avatar>
-                <PersonIcon />
+                {user ? initial(user.firstName + " " + user.lastName) : "?"}
               </Avatar>
             </IconButton>            
             <Menu

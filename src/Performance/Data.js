@@ -38,7 +38,7 @@ const Data = () => {
 
     const handleUpload = async () => {
         const data = new FormData();
-        data.append('file', document.getElementById('fileInput').files[0]);
+        data.append('file', hiddenFileInput.current.files[0]);
         await authFetch(`${process.env.REACT_APP_API_ROOT}/risk/data`, {
             method: 'POST',
             body: data
