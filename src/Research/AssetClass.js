@@ -1,48 +1,57 @@
 import { useEffect, useState } from 'react';
-import { useParams } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
 import { authFetch } from "../Auth";
-import { DataGrid } from '@mui/x-data-grid';
+import { DataGrid, GridToolbar } from '@mui/x-data-grid';
 
 const columns = [
-    { field: 'id', headerName: 'ID', width: 90 },
     {
-      field: 'name',
-      headerName: 'Fund Name',
-      width: 150,
-      editable: false,
+        field: 'id',
+        headerName: '#',
+        width: 75,
+        editable: false
     },
     {
-      field: 'firm',
-      headerName: 'Firm Name',
-      width: 150,
-      editable: false,
+        field: 'name',
+        headerName: 'Fund Name',
+        editable: false,
+        flex: 1
     },
-  ];
+    {
+        field: 'firm',
+        headerName: 'Firm Name',
+        editable: false,
+        flex: 1
+    },
+];
 
 const AssetClass = () => {
 
     const params = useParams();
+    const navigate = useNavigate();
     const [assetClass, setAssetClass] = useState(params.assetClass.replace("_", " "));
     const [funds, setFunds] = useState([]);
 
     useEffect(() => {
-        const fetchNotes = async () => {
-            const response = await authFetch(`${process.env.REACT_APP_API_ROOT}/fund/assetClass/${encodeURIComponent(assetClass)}`)
-            const json = await response.json();
-            setFunds(json);
-        }
-        fetchNotes(0, 50);
-    }, []);
+        authFetch(`${process.env.REACT_APP_API_ROOT}/fund/assetClass/${encodeURIComponent(assetClass)}`)
+            .then((response) => response.json())
+            .then((data) => {
+                setFunds(data.map((fund, index) => ({ id: index + 1, ...fund })));
+            })
+    }, [assetClass]);
+
+    if (false) {
+        setAssetClass();
+    }
 
     return (
         <>
-            <h1>Asset Class - {assetClass}</h1>
-            <p>Count {funds.length}</p>
+            <h1>{assetClass}</h1>
             <DataGrid
                 rows={funds}
                 columns={columns}
                 disableRowSelectionOnClick
-                getRowId={row => row._id}
+                slots={{ toolbar: GridToolbar }}
+                onRowClick={(params) => navigate(`/Research/${params.row._id}`)}
             />
         </>
     );

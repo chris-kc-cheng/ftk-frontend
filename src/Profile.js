@@ -1,7 +1,6 @@
 import { useEffect, useState } from 'react';
 import { authFetch } from "./Auth";
 import Alert from '@mui/material/Alert';
-import Avatar from '@mui/material/Avatar';
 import Box from '@mui/material/Box';
 import Button from '@mui/material/Button';
 import Checkbox from '@mui/material/Checkbox';
@@ -11,6 +10,7 @@ import FormControlLabel from '@mui/material/FormControlLabel';
 import Stack from '@mui/material/Stack';
 import TextField from '@mui/material/TextField';
 import Typography from '@mui/material/Typography';
+import ColoredAvatar from './Util/ColoredAvatar';
 
 const Profile = () => {
 
@@ -58,12 +58,10 @@ const Profile = () => {
         <Typography variant="h5">Profile</Typography>
         {data &&
           <>
-            <Avatar
-              alt={data.first_name + ' ' + data.last_name}
+            <ColoredAvatar
               sx={{ width: 56, height: 56 }}
-            >
-              {data.firstName[0] + data.lastName[0]}
-            </Avatar>
+              name={data.firstName + " " + data.lastName}
+            />
             <TextField
               label="First Name"
               defaultValue={data.firstName}

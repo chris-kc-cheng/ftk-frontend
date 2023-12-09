@@ -13,6 +13,7 @@ import Fund from './Research/Fund';
 import Note from './Research/Note';
 import EditNote from './Research/EditNote';
 import Home from './Home';
+import Equity from './Market/Equity';
 import reportWebVitals from './reportWebVitals';
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
@@ -45,7 +46,7 @@ root.render(
           <Route path="Client" element={<h1>Client</h1>} />
           <Route path="Market">
             <Route index element={<h1>Market</h1>} />
-            <Route path="Equity" element={<h1>Equity</h1>} />
+            <Route path="Equity" element={<Equity />} />
             <Route path="Currency" element={<h1>Currency</h1>} />
             <Route path="Cryptocurrency" element={<h1>Cryptocurrency</h1>} />
           </Route>
