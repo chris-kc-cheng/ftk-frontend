@@ -15,8 +15,6 @@ const NoteCard = (props) => {
     const navigate = useNavigate();
     const note = props.note;
 
-    const initial = note.authorName.split(' ').map(x => x[0]).join('');
-
     return (
         <Card sx={{ maxWidth: 800 }}>
         <CardHeader
