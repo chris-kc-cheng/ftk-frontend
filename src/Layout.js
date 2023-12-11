@@ -48,7 +48,8 @@ const menu = [
         path: '',
         label: 'Latest Notes'
       },
-      { path: 'Tag', label: 'By Category' }
+      { path: 'Followed', label: 'Followed' },
+      { path: 'Tag', label: 'By Category' },      
     ]
   },
   {

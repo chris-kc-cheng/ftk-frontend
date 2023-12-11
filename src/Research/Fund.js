@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
 import { authFetch } from "../Auth";
 import AssignmentOutlinedIcon from '@mui/icons-material/AssignmentOutlined';
+import Button from '@mui/material/Button';
 import Chip from '@mui/material/Chip';
 import SpeedDial from '@mui/material/SpeedDial';
 import SpeedDialIcon from '@mui/material/SpeedDialIcon';
@@ -16,6 +17,7 @@ const Fund = () => {
   const navigate = useNavigate();
 
   const [fund, setFund] = useState();
+  const [followed, setFollowed] = useState();
   const [notes, setNotes] = useState([]);
 
   useEffect(() => {
@@ -24,11 +26,18 @@ const Fund = () => {
       .then((data) => {
         setFund(data);
       }).catch(e => console.log(e))
+
     authFetch(`${process.env.REACT_APP_API_ROOT}/fund/${params.fundId}/note`)
       .then((response) => response.json())
       .then((data) => {
         setNotes(data);
       }).catch(e => console.log(e))
+
+    authFetch(`${process.env.REACT_APP_API_ROOT}/fund/follow/${params.fundId}`)
+      .then((response) => response.json())
+      .then((data) => {
+        setFollowed(data);
+      }).catch(e => console.log(e)) 
   }, [params.fundId]);
 
   const handleNewNote = async () => {
@@ -37,6 +46,16 @@ const Fund = () => {
     })
     const note = await response.json();
     navigate(`/Research/Note/${note._id}`)
+  }
+
+  const handleFollow = async () => {
+    authFetch(`${process.env.REACT_APP_API_ROOT}/fund/follow/${params.fundId}`, {
+      method: 'POST'
+    })
+    .then((response) => response.json())
+    .then((data) => {
+      setFollowed(data);
+    }).catch(e => console.log(e)) 
   }
 
   return (
@@ -49,14 +68,20 @@ const Fund = () => {
                 <Chip key={assetClass} label={assetClass} onClick={() => navigate(`/Research/Tag/${assetClass}`)} />
               )}
             </Stack>
-            <Typography variant="h5">{fund.name}</Typography>
-            <Typography variant="subtitle1">{fund.firm}</Typography>
-            {fund.launchDate &&
-              <Typography variant="subtitle2">Launched: {fund.launchDate}</Typography>
-            }
-            {notes && notes.map(note =>
-              <NoteCard key={note._id} note={note} />
-            )}
+            <Stack spacing={2}>
+              <Typography variant="h5">{fund.name}</Typography>
+              <Typography variant="subtitle1">{fund.firm}</Typography>
+              {fund.launchDate &&
+                <Typography variant="subtitle2">Launched: {fund.launchDate}</Typography>
+              }
+              <Button variant={followed ? "contained" : "outlined"} onClick={() => handleFollow(params.fundId)}>
+                {followed ? "Followed" : "Follow +"}
+              </Button>
+
+              {notes && notes.map(note =>
+                <NoteCard key={note._id} note={note} />
+              )}
+            </Stack>
           </>
         }
       </Stack>

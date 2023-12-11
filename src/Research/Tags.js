@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-import { Link, useNavigate } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import { authFetch } from "../Auth";
 import Box from '@mui/material/Box';
 import Card from '@mui/material/Card';
@@ -21,10 +21,7 @@ import ColoredAvatar from '../Util/ColoredAvatar';
 
 const Tags = () => {
 
-    const navigate = useNavigate();
-
     const [tab, setTab] = useState(0);
-    const [data, setData] = useState([]);
     const [tree, setTree] = useState();
     const [assetClasses, setAssetClasses] = useState([]);
 
@@ -39,7 +36,6 @@ const Tags = () => {
         authFetch(`${process.env.REACT_APP_API_ROOT}/fund/tag/Asset Class/descendants`)
             .then((response) => response.json())
             .then((data) => {
-                setData(data);
                 const createNode = (name) => {
                     const item = data.find(d => d._id === name);
                     return ({

@@ -11,6 +11,7 @@ import NewFund from './Admin/NewFund';
 import Profile from './Profile';
 import Fund from './Research/Fund';
 import Note from './Research/Note';
+import Followed from './Research/Followed';
 import EditNote from './Research/EditNote';
 import Home from './Home';
 import Equity from './Market/Equity';
@@ -36,6 +37,7 @@ root.render(
               <Route index element={<Tags />} />
               <Route path=":tag" element={<Tag />} />
             </Route>
+            <Route path="Followed" element={<Followed />} />
             <Route path=":fundId" element={<Fund />} />
             <Route path="Note/:noteId" element={<EditNote />} />
           </Route>          
