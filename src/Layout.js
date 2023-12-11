@@ -48,7 +48,7 @@ const menu = [
         path: '',
         label: 'Latest Notes'
       },
-      { path: 'AssetClass', label: 'By Asset Class' }
+      { path: 'Tag', label: 'By Category' }
     ]
   },
   {

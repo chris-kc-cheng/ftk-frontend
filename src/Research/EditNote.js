@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
 import { authFetch } from "../Auth";
+import Box from '@mui/material/Box';
 import Button from '@mui/material/Button';
 import FormControlLabel from '@mui/material/FormControlLabel';
 import Switch from '@mui/material/Switch';
@@ -13,6 +14,7 @@ const EditNote = () => {
     const params = useParams();
     const navigate = useNavigate();
 
+    const [fundId, setFundId] = useState('');
     const [fundName, setFundName] = useState('');
     const [content, setContent] = useState('');
     const [published, setPublished] = useState(false);
@@ -21,6 +23,7 @@ const EditNote = () => {
         authFetch(`${process.env.REACT_APP_API_ROOT}/note/${params.noteId}`)
             .then((response) => response.json())
             .then((data) => {
+                setFundId(data.fundId);
                 setFundName(data.fundName);
                 setContent(data.content);
                 setPublished(data.published);
@@ -50,17 +53,28 @@ const EditNote = () => {
         navigate('/Research');
     }
 
+    const handleCancel = async () => {
+        navigate(`/Research/${fundId}`);
+    }
+
     return (
-        <Stack>
+        <Stack spacing={2}>
             <Typography variant="h5">New note for {fundName}</Typography>
             <MDEditor
                 value={content}
-                height="700px"
+                height="600px"
                 onChange={(value, viewUpdate) => setContent(value)}
             />
-            <FormControlLabel control={<Switch checked={published} onChange={(event) => { setPublished(event.target.checked) }} />} label={published ? "Published" : "Draft"} />
-            <Button variant="outlined" onClick={handleSave}>Save</Button>
-            <Button variant="contained" onClick={handlePublish}>Publish</Button>
+            <Box sx={{
+                display: 'flex',
+                justifyContent: 'space-between'}}>            
+                <FormControlLabel control={<Switch checked={published} onChange={(event) => { setPublished(event.target.checked) }} />} label={published ? "Published" : "Draft"} />
+                <Stack spacing={2} direction='row'>
+                    <Button variant="outlined" onClick={handleCancel}>Cancel</Button>
+                    <Button variant="outlined" onClick={handleSave}>Save</Button>
+                    <Button variant="contained" onClick={handlePublish}>Publish</Button>
+                </Stack>                
+            </Box>
         </Stack>
     );
 }

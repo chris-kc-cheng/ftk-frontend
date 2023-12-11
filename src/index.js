@@ -3,11 +3,11 @@ import ReactDOM from 'react-dom/client';
 import { HashRouter, Route, Routes, Outlet } from "react-router-dom";
 import App from './App';
 import Research from './Research/Research';
-import AssetClasses from './Research/AssetClasses';
-import AssetClass from './Research/AssetClass';
+import Tags from './Research/Tags';
+import Tag from './Research/Tag';
 import Performance from './Performance/Performance';
 import Data from './Performance/Data';
-import Admin from './Admin';
+import NewFund from './Admin/NewFund';
 import Profile from './Profile';
 import Fund from './Research/Fund';
 import Note from './Research/Note';
@@ -32,9 +32,9 @@ root.render(
               <Outlet />
             </>}>            
             <Route index element={<Note />} />
-            <Route path="AssetClass">
-              <Route index element={<AssetClasses />} />
-              <Route path=":assetClass" element={<AssetClass />} />
+            <Route path="Tag">
+              <Route index element={<Tags />} />
+              <Route path=":tag" element={<Tag />} />
             </Route>
             <Route path=":fundId" element={<Fund />} />
             <Route path="Note/:noteId" element={<EditNote />} />
@@ -50,7 +50,7 @@ root.render(
             <Route path="Currency" element={<h1>Currency</h1>} />
             <Route path="Cryptocurrency" element={<h1>Cryptocurrency</h1>} />
           </Route>
-          <Route path="Admin" element={<Admin />} />
+          <Route path="Admin" element={<NewFund />} />
           <Route path="Profile" element={<Profile />} />
         </Route>
       </Routes>

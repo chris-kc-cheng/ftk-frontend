@@ -46,7 +46,7 @@ const Fund = () => {
           <>
             <Stack direction="row" spacing={1}>
               {fund.assetClasses.map(assetClass =>
-                <Chip key={assetClass} label={assetClass} />
+                <Chip key={assetClass} label={assetClass} onClick={() => navigate(`/Research/Tag/${assetClass}`)} />
               )}
             </Stack>
             <Typography variant="h5">{fund.name}</Typography>

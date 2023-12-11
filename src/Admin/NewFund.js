@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { authFetch } from "./Auth";
+import { authFetch } from "../Auth";
 import Autocomplete from '@mui/material/Autocomplete';
 import Button from '@mui/material/Button';
 import Divider from '@mui/material/Divider';
@@ -17,10 +17,15 @@ const Admin = () => {
     const [firmName, setFirmName] = useState('');
     const [launchDate, setLaunchDate] = useState();
     const [assetClasses, setAssetClasses] = useState([]);
-    const assetClassesList = ['Hedge Fund', 'Private Equity', 'Private Debt'];
+    const [assetClassOption, setAssetClassOption] = useState([]);
 
     useEffect(() => {
         document.title = 'Admin';
+        authFetch(`${process.env.REACT_APP_API_ROOT}/fund/tag/`)
+        .then((response) => response.json())
+        .then((data) => {            
+            setAssetClassOption(data);
+        })        
     }, []);
 
     const handleCreateFund = async () => {
@@ -63,7 +68,7 @@ const Admin = () => {
             <Autocomplete
                 multiple
                 id="tags-standard"
-                options={assetClassesList}
+                options={assetClassOption}
                 getOptionLabel={(option) => option}
                 defaultValue={[]}
                 value={assetClasses}
